@@ -1,0 +1,60 @@
+.parent {
+  background-color: blue;
+  height: 600px;
+}
+.child1 {
+  background-color: red;
+  width: 50%;
+  height: 300px;
+}
+.child2 {
+  background-color: yellow;
+  width: 25%;
+  height: 50%;
+}
+
+/* em */
+.parent-font {
+  font-size: 30px;
+}
+.child-font1 {
+  /* 15px */
+  font-size: 0.5em;
+}
+.child-font2 {
+  /* 60px */
+  font-size: 2em;
+}
+.child-child-font2 {
+  /* 120px */
+  font-size: 2em;
+}
+
+/* rem */
+.rem-font-1 {
+  /* 16 * 0.5 = 8px */
+  font-size: 0.5rem;
+}
+.rem-font-2 {
+  /* 16 * 2 = 32px */
+  font-size: 2rem;
+}
+
+/* viewport */
+.full-height {
+  /* 화면 높이 만큼의 100% 높이 */
+  min-height: 100vh;
+  background-color: lightyellow;
+}
+
+/* 상속과 비상속 */
+.parent-div {
+  color: aqua;
+  font-size: 10rem;
+  /* 테두리 : 2px 검은색 실선 */
+  border: 2px black solid;
+}
+.child-div {
+  /* 테두리 : 4px 빨강 점선 */
+  border: 4px red dashed;
+}
