@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>조회</button>
+    <button id="delete">삭제</button>
+
+    <script>
+      localStorage.setItem("key", "value");
+      localStorage.setItem("키", "값");
+      localStorage.setItem("저녁", "도시락");
+
+      const button = document.querySelector("button");
+      button.addEventListener("click", () => {
+        const data = localStorage.getItem("저녁");
+        alert(data); // 도시락
+      });
+
+      const deleteButton = document.querySelector("#delete");
+      deleteButton.addEventListener("click", () => {
+        const data = localStorage.removeItem("저녁");
+        alert(data);
+      });
+    </script>
+  </body>
+</html>
