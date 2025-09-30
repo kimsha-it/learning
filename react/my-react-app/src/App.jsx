@@ -1,16 +1,10 @@
-import React from "react";
-import ProfileContainer from "./components/PropsExample/ProfileContainer";
-import CardContainer from "./components/PropsFunction/CardContainer";
-import ProductContainer from "./components/ProductCard/ProductContainer";
-import Parent from "./components/PropsChildren/Parent";
+import React from 'react'
+import Container from './components/Condition/Container'
 
 export default function App() {
   return (
     <div>
-      {/* <ProfileContainer></ProfileContainer> */}
-      {/* <CardContainer></CardContainer> */}
-      {/* <ProductContainer></ProductContainer> */}
-      <Parent></Parent>
+      <Container></Container>
     </div>
-  );
+  )
 }

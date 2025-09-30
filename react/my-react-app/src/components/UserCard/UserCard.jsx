@@ -5,6 +5,9 @@ export default function UserCard() {
         <div class="p-6">
           <div class="flex justify-center mb-4">
             <img
+              onClick={() => {
+                hadleClick();
+              }}
               class="w-24 h-24 rounded-full object-cover"
               src={userData.profileImage}
               alt="사용자 프로필"
