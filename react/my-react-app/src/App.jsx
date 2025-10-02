@@ -1,12 +1,10 @@
 import React from "react";
-import Container from "./components/UseEffect/Container";
-import RequestData from "./components/UseEffect/RequestData";
+import MovieDetail from "./components/TMDB/MovieDetail";
 
 export default function App() {
   return (
     <div>
-      {/* <Container></Container> */}
-      <RequestData></RequestData>
+      <MovieDetail></MovieDetail>
     </div>
   );
 }
