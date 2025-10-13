@@ -11,6 +11,7 @@ import Profile from "../pages/RootPages/Profile.jsx";
 // 레이아웃 컴포넌트 불러오기
 import RootLayout from "../layout/RootLayout";
 import AuthLayout from "../layout/AuthLayout.jsx";
+import ProtectedLayout from "../layout/ProtectedLayout.jsx";
 
 import AuthHome from "../pages/AuthPages/AuthHome.jsx";
 import Signup from "../pages/AuthPages/Signup.jsx";
@@ -33,10 +34,19 @@ const router = createBrowserRouter([
         Component: About,
       },
 
+      // {
+      //   path: "profile",
+      //   Component: Profile,
+      // },
       {
-        path: "profile",
-        Component: Profile,
-      },
+        Component: ProtectedLayout,
+        children: [
+          {
+            path: "profile",
+            Component: Profile,
+          }
+        ]
+      }
     ],
   },
 
