@@ -7,6 +7,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/RootPages/Home.jsx";
 import About from "../pages/RootPages/About.jsx";
 import Profile from "../pages/RootPages/Profile.jsx";
+import PostList from "../pages/RootPages/PostList.jsx";
+import PostDetail from "../pages/RootPages/PostDetail.jsx";
 
 // 레이아웃 컴포넌트 불러오기
 import RootLayout from "../layout/RootLayout";
@@ -34,6 +36,15 @@ const router = createBrowserRouter([
         Component: About,
       },
 
+      {
+        path: "posts",
+        Component: PostList,
+      },
+      {
+        path: "posts/:postId",
+        Component: PostDetail,
+      },
+
       // {
       //   path: "profile",
       //   Component: Profile,
@@ -44,9 +55,9 @@ const router = createBrowserRouter([
           {
             path: "profile",
             Component: Profile,
-          }
-        ]
-      }
+          },
+        ],
+      },
     ],
   },
 
