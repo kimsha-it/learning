@@ -13,7 +13,7 @@ export default function AuthLayout() {
           className={({ isActive }) =>
             `${baseClass} ${isActive ? activeClass : ""}`
           }
-          to="/auth"
+          to={PATHS.AUTH.INDEX}
         >
           인증 홈페이지
         </NavLink>
@@ -21,7 +21,7 @@ export default function AuthLayout() {
           className={({ isActive }) =>
             `${baseClass} ${isActive ? activeClass : ""}`
           }
-          to="/auth/login"
+          to={PATHS.AUTH.LOGIN}
         >
           로그인 홈페이지
         </NavLink>
@@ -29,7 +29,7 @@ export default function AuthLayout() {
           className={({ isActive }) =>
             `${baseClass} ${isActive ? activeClass : ""}`
           }
-          to="/auth/signup"
+          to={PATHS.AUTH.SIGNUP}
         >
           회원가입 홈페이지
         </NavLink>
@@ -37,7 +37,7 @@ export default function AuthLayout() {
           className={({ isActive }) =>
             `${baseClass} ${isActive ? activeClass : ""}`
           }
-          to="/auth/authhome"
+          to="/"
         >
           홈페이지
         </NavLink>

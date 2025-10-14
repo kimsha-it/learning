@@ -19,10 +19,13 @@ import AuthHome from "../pages/AuthPages/AuthHome.jsx";
 import Signup from "../pages/AuthPages/Signup.jsx";
 import Login from "../pages/AuthPages/Login.jsx";
 
+// 경로 상수 불러오기
+import PATHS from "../constants/path.jsx";
+
 // 라우터 생성
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: PATHS.ROOT.INDEX,
     Component: RootLayout,
     children: [
       // 중첩할 자식 경로 객체를 정의하는 배열
@@ -32,16 +35,20 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "about",
+        path: PATHS.ROOT.ABOUT,
         Component: About,
       },
 
       {
-        path: "posts",
+        path: PATHS.ROOT.POSTS,
         Component: PostList,
       },
       {
-        path: "posts/:postId",
+        path: PATHS.ROOT.POST_DETAIL,
+        Component: PostDetail,
+      },
+      {
+        path: PATHS.ROOT.PROFILE,
         Component: PostDetail,
       },
 
@@ -62,7 +69,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/auth",
+    path: PATHS.AUTH.INDEX,
     Component: AuthLayout,
     children: [
       {
@@ -70,12 +77,22 @@ const router = createBrowserRouter([
         Component: AuthHome,
       },
       {
-        path: "login",
+        path: PATHS.AUTH.LOGIN,
         Component: Login,
       },
       {
-        path: "signup",
+        path: PATHS.AUTH.SIGNUP,
         Component: Signup,
+      },
+    ],
+  },
+  {
+    path: "/dummy",
+    Component: DummyLayout,
+    children: [
+      {
+        index: true,
+        Component: DummyHome,
       },
     ],
   },

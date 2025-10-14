@@ -56,10 +56,13 @@ export default function PostList() {
           iD 내림차순
         </button>
       </div>
-
       {posts.map((post) => {
         return (
-          <Link key={post.id} to={`/posts/${post.id}`}>
+          // <Link to={PATHS.ROOT.POST_DETAIL}>
+          //   No. {post.id} - {post.title}
+          //   <br />
+          // </Link>
+          <Link to={PATHS.ROOT.getPostDetail(post.id)}>
             No. {post.id} - {post.title}
             <br />
           </Link>
