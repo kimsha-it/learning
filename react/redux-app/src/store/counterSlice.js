@@ -19,7 +19,7 @@ const counterSlice = createSlice({
     incrementByAmount: (state, action) => {
       // 매개변수 action : 상태를 어떻게 변경할지 정보 (무엇을, 어떻게, 얼마만큼 => payload)를 저장한 객체
       // payload 속성의 값은 문자열, 그래서 Number로 형변환
-      state.count += state.count + Number(action.payload);
+      state.count = state.count + Number(action.payload);
     },
     // 상태 count를 0으로 만드는 리듀서와 액션
     reset: (state) => {
