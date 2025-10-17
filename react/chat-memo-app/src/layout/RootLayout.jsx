@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   return (
     <div>
-      <div className="h-screen bg-gray-50 flex">
+      <div className="h-screen bg-gray-50 flex-row">
         {/*네비게이션바 */}
         <nav className="bg-white border-b border-gray-200 h-20 w-full flex-shrink-0 flex justify-between">
           <div className="flex flex-row gap-4 p-4">

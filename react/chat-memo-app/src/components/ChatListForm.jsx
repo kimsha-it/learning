@@ -1,37 +1,28 @@
-import { useEffect, useRef } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-export default function ChatListForm({ messages }) {
-  const chatEndRef = useRef(null);
-
-  // 새 메시지 추가 시 자동 스크롤
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+// Props message : 사용자 or AI 메세지 객체
+export default function ChatMessage({ messages }) {
+  // 사용자 메세지 / AI 메세지 확인용 변수
+  const isUser = messages["role"] === "user";
+  const isAi = messages["role"] === "ai";
 
   return (
-    <div className="flex flex-col gap-4 p-4 overflow-y-auto h-[80vh] bg-gray-50 rounded-lg shadow-inner">
-      {messages.map((message, index) => {
-        const isUser = message.role === "user";
-
-        return (
-          <div
-            key={index}
-            className={`flex ${isUser ? "justify-end" : "justify-start"}`}
-          >
-            <div
-              className={`max-w-[75%] px-4 py-3 rounded-2xl shadow-sm ${
-                isUser
-                  ? "bg-blue-500 text-white rounded-br-none"
-                  : "bg-white text-gray-800 border border-gray-200 rounded-bl-none"
-              }`}
-            >
-              <p className="whitespace-pre-line">{message.content}</p>
-            </div>
-          </div>
-        );
-      })}
-      {/* 마지막 메시지 스크롤용 ref */}
-      <div ref={chatEndRef} />
+    // 메세지 role에 따라 정렬 방향 결정
+    <div className={`mt-16 flex ${isUser ? "justify-end" : "justify-start"}`}>
+      {/* AI 메세지 : 마크다운 표현 */}
+      {/* 사용자 메세지 : 일반 텍스트 표현 */}
+      {isAi ? (
+        <div className="markdown-content max-w-[90%]">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {messages.content}
+          </ReactMarkdown>
+        </div>
+      ) : (
+        <div className="p-3 border rounded-xl border-gray-300">
+          {messages.content}
+        </div>
+      )}
     </div>
   );
 }

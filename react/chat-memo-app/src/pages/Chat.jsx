@@ -52,7 +52,7 @@ export default function Chat() {
   return (
     <div className="flex flex-col h-screen">
       {/* 채팅 내역 */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
         <ChatListForm messages={messages} />
       </div>
 
