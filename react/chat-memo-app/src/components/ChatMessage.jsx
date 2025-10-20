@@ -2,10 +2,10 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 // Props message : 사용자 or AI 메세지 객체
-export default function ChatMessage({ messages }) {
+export default function ChatMessage({ message }) {
   // 사용자 메세지 / AI 메세지 확인용 변수
-  const isUser = messages["role"] === "user";
-  const isAi = messages["role"] === "ai";
+  const isUser = message["role"] === "user";
+  const isAi = message["role"] === "ai";
 
   return (
     // 메세지 role에 따라 정렬 방향 결정
@@ -15,12 +15,12 @@ export default function ChatMessage({ messages }) {
       {isAi ? (
         <div className="markdown-content max-w-[90%]">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {messages.content}
+            {message.content}
           </ReactMarkdown>
         </div>
       ) : (
         <div className="p-3 border rounded-xl border-gray-300">
-          {messages.content}
+          {message.content}
         </div>
       )}
     </div>

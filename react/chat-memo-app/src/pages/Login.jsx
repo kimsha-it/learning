@@ -35,21 +35,21 @@ export default function Login() {
           handleSubmit(e);
         }}
       >
-        <input
+        <input className="border-2"
           type="email"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
           }}
         />
-        <input
+        <input className="border-2"
           type="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
-        <input type="submit" value="로그인" />
+        <input className="border-2" type="submit" value="로그인" />
       </form>
     </div>
   );

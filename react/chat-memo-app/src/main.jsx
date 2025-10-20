@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/index";
 
 import { RouterProvider } from "react-router-dom";
-import router from "./router";
+import router from "./router/index";
 
 // Persist 스토어
 import { PersistGate } from "redux-persist/integration/react";

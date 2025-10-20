@@ -21,34 +21,33 @@ export default function Signup() {
     if (isSignup === true) {
       // 회원가입을 성공 했다면
       alert("회원가입을 성공했습니다. 메일함을 확인해주세요.");
-      dispatch(resetIsSignup);
-
+      dispatch(resetIsSignup());
       navigate("/");
     }
   }, [isSignup, dispatch]);
 
   return (
     <div>
-      <form
+      <form className="flex justify-center"
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
-        <input
+        <input className="border-2"
           type="email"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
           }}
         />
-        <input
+        <input className="border-2"
           type="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
-        <input type="submit" value="회원가입" />
+        <input className="border-2" type="submit" value="회원가입" />
       </form>
     </div>
   );

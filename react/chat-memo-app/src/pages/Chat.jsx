@@ -1,10 +1,14 @@
 import { useState } from "react";
-import ChatListForm from "../components/ChatListForm";
+import MessageList from "../components/MessageList";
 import ChatForm from "../components/ChatForm";
 import { ai, chat } from "../utils/genai";
 
 // 응답 제어 파라미터 불러오기
 import { config } from "../utils/genai";
+
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
 export default function Chat() {
   const [prompt, setPrompt] = useState(""); // 사용자 입력 프롬프트 관리 상태
@@ -13,13 +17,8 @@ export default function Chat() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // 프롬프트가 비어있거나 AI 응답을 대기 중이라면
-    // isLoading === true, prompt.trim() === ""라면 작업 X
     if (isLoading === true || prompt.trim() === "") return;
 
-    // 대화 내역 상태를 업데이트
-    // 사용자의 프롬프트를 대화 내역에 추가(role: "user")
-    // role 역할: user라면 오른쪽에 배치, ai라면 왼쪽에 배치
     setMessages((prev) => [...prev, { role: "user", content: prompt }]);
 
     // currentPrompt 변수
@@ -28,24 +27,57 @@ export default function Chat() {
     setPrompt("");
 
     setIsLoading(true); // 요청 시작
-    await generateAiContent(currentPrompt); //AI 응답 생성 함수
-    setIsLoading(false); // 요청 종료
-  }
 
-  // AI에게 요청을 보내서 응답을 생성하는 함수
-  async function generateAiContent(currentPrompt) {
     try {
-      // 이전 대화 내용을 유지하면서 연속된 대화를 하며 텍스트를 생성
+      // Gemini에게 요청 보내기
       const response = await chat.sendMessage({
         message: currentPrompt,
         config: config,
       });
-      console.log(response.data);
 
-      // messages 상태에 AI 응답을 저장
-      setMessages((prev) => [...prev, { role: "ai", content: response.text }]);
+      // 응답 텍스트 안전하게 추출
+      const aiText =
+        response.text ||
+        response?.text() ||
+        "AI 응답을 불러올 수 없습니다.";
+
+      console.log("AI 응답 원문:", aiText);
+
+      // JSON 파싱 시도
+      let parsed;
+      try {
+        parsed = JSON.parse(aiText);
+      } catch {
+        parsed = { content: aiText, dueDate: "날짜 정보 없음" };
+      }
+
+      // 새 메모 객체 생성
+      const newMemo = {
+        id: Date.now(),
+        title: parsed.dueDate || "AI 생성 메모",
+        content: parsed.content || currentPrompt,
+        dueDate: parsed.dueDate || null,
+        isCompleted: false,
+      };
+
+      // 로컬스토리지에 저장
+      const storedMemos = JSON.parse(localStorage.getItem("memos")) || [];
+      const updatedMemos = [...storedMemos, newMemo];
+      localStorage.setItem("memos", JSON.stringify(updatedMemos));
+
+      // 채팅창에 AI 응답 표시
+      setMessages((prev) => [...prev, { role: "ai", content: parsed.content }]);
+
+
+      alert("✅ 메모가 저장되었습니다! ChatList 페이지에서 확인하세요.");
     } catch (error) {
-      console.log(error);
+      console.error("AI 응답 처리 중 오류:", error);
+      setMessages((prev) => [
+        ...prev,
+        { role: "ai", content: "❌ 메모 생성 중 오류가 발생했습니다." },
+      ]);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -53,7 +85,7 @@ export default function Chat() {
     <div className="flex flex-col h-screen">
       {/* 채팅 내역 */}
       <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
-        <ChatListForm messages={messages} />
+        <MessageList messages={messages} />
       </div>
 
       {/* 입력창 */}
