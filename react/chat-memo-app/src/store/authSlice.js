@@ -130,6 +130,7 @@ const authSlice = createSlice({
         // 로그아웃 비동기 처리가 성공한 상태
         // 토큰 상태 초기화
         state.token = null;
+        localStorage.removeItem("token");
       })
       .addCase(signup.rejected, (state, action) => {
         // action.payload 어디서 왔는가?

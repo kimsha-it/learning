@@ -63,8 +63,11 @@
 
 import React from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function RootLayout() {
+  const token = useSelector((state) => state.auth.token);
+
   const navItems = [
     { path: "/", label: "Memo AI" },
     { path: "/chat", label: "메모 작성" },
@@ -99,32 +102,43 @@ export default function RootLayout() {
 
           {/* 로그인 / 회원가입 버튼 */}
           <div className="flex gap-3">
-            <button
-              onClick={() => navigate("/login")}
-              className="px-4 py-2 bg-[#bfa98e] text-white rounded-lg shadow hover:bg-[#a6907a] transition-all duration-200"
-            >
-              로그인
-            </button>
-            <button
-              onClick={() => navigate("/signup")}
-              className="px-4 py-2 bg-[#d1c0a5] text-[#4b4033] rounded-lg shadow hover:bg-[#c3ae91] transition-all duration-200"
-            >
-              회원가입
-            </button>
+            {token ? (
+              <button
+                onClick={() => navigate("/profile")}
+                className="px-4 py-2 bg-[#bfa98e] text-white rounded-lg shadow hover:bg-[#a6907a] transition-all duration-200"
+              >
+                마이페이지
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="px-4 py-2 bg-[#bfa98e] text-white rounded-lg shadow hover:bg-[#a6907a] transition-all duration-200"
+                >
+                  로그인
+                </button>
+                <button
+                  onClick={() => navigate("/signup")}
+                  className="px-4 py-2 bg-[#d1c0a5] text-[#4b4033] rounded-lg shadow hover:bg-[#c3ae91] transition-all duration-200"
+                >
+                  회원가입
+                </button>
+              </>
+            )}
           </div>
         </div>
       </nav>
 
-      {/* 🌿 메인 컨텐츠 */}
+      {/* main */}
       <main className="flex-grow flex justify-center items-start p-6 overflow-y-auto">
         <div className="w-full max-w-5xl bg-[#fffaf2] rounded-2xl shadow-md p-8 mt-6 border border-[#e6dccb]">
           <Outlet />
         </div>
       </main>
 
-      {/* ☕ 푸터 */}
+      {/* footer */}
       <footer className="text-center py-4 text-[#8b7b68] text-sm border-t border-[#e6dccb]">
-        © {new Date().getFullYear()} Memo AI — cozy vintage vibes ☕
+        © {new Date().getFullYear()} Memo AI ☕
       </footer>
     </div>
   );
